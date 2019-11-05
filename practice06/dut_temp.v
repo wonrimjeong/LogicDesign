@@ -244,11 +244,11 @@ input		rst_n		;
 
 wire	[5:0]	nco_cnt		;
 wire	[5:0]	nco_num		;
-wire	[6:0]	left		;
-wire	[6:0]	right		;
+wire	[3:0]	left		;
+wire	[3:0]	right		;
 wire	[41:0]	six_digit_seg	;
-wire	[3:0]	seg_left	;
-wire	[3:0]	seg_right	;
+wire	[6:0]	seg_left	;
+wire	[6:0]	seg_right	;
 
 assign		six_digit_seg = { {4{7'b0000000}}, seg_left, seg_right };
 assign	nco_num = 32'd5000000	;
