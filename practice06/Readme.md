@@ -22,5 +22,6 @@
 ![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice06/%EC%A3%BC%EC%84%9D%202019-11-05%20193820.png)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MDQ3ODAyMzFdfQ==
+eyJoaXN0b3J5IjpbLTE4MzE1MTM2MDgsLTE5MDQ3ODAyMzFdfQ
+==
 -->
