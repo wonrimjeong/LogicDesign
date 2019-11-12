@@ -63,5 +63,5 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxNDEyMTQ0NywtMTkwNDc4MDIzMV19
+eyJoaXN0b3J5IjpbLTMxNDEyMTQ0N119
 -->
