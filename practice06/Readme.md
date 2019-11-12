@@ -1,27 +1,67 @@
-# Lab 06
+# Lab 07
+
 ## 실습 내용
-### **7 – Segment Display Decoder (개별)**
-#### **Submodule 1** : 0~9의 값을 갖는 4bit 입력 신호를 받아 7bit FND  segment  값 출력
-#### **Submodule 2** : 0~59의 값을 갖는 6bit 입력 신호를 받아 십의 자리 수와 일의 자리 수를 각각 4bit으로 출력
-#### **Top Module** : 저번 시간에 만든 second counter  및 Submodule 1/2를 이용하여 실습 장비의 LED에 맞는 Display Module 설계
-### FPGA 실습 (팀) : 6개의 LED 중 가장 오른쪽 2개의 LED에 1초간격으로 0~59까지 증가하는 Counter 값 Display
-: NCO(Numerical Controlled Oscillator) 입력 바꿔서 4초 간격으로 증가하는 코드 테스트
-## 퀴즈 
-### 아래 코드 일부를 수정하여 다음을 구하시오
-```verilog wire  [41:0] six_digit_seg; assign       six_digit_seg = { 4{7'b0000000}, seg_left, seg_right } ``` 
 
-> Q1 - 고정 LED (왼쪽 4개) AAAA 출력 : `AA_AA_00`, `AA_AA_01`, `AA_AA_02`, … 순으로 LED 변경
-```verilog wire  [41:0] six_digit_seg; assign       six_digit_seg = { 4{7'b1110111}, seg_left, seg_right } ```
+### **디지털 시계 (분:초) 부분 설계 - Debounce 적용 전**
 
-> Q2 - 고정 LED 없이 2개의 LED 단위로 1초 Counter 값 표시 : `00_00_00`, `01_01_01`, `02_02_02`, … 순으로 LED 변경
- ```verilog wire  [41:0] six_digit_seg; assign       six_digit_seg = { seg_left, seg_right, seg_left, seg_right , seg_left, seg_right } ```
-## 결과 
-### **Top Module 의 DUT/TestBench Code 및 Waveform 검증**
-![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice06/wave.png)
-### **FPGA 동작 사진 (3개- 일반, Q1, Q2)**
-![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice06/%EC%A3%BC%EC%84%9D%202019-11-05%20193820.png)
+![](https://github.com/woongchoi-sookmyung/LogicDesign/blob/master/practice07/figs/block_diagram.png)
 
+: GitHub에 제공된 소스코드 사용 - 다른 모듈 건드리지 말 것
+
+: top module (top_hms_clock) 만 채워서 설계
+
+: 이번 실습은 Test Bench 생략가능 (ModelSim 검증하고 FPGA 하는게 더 빠른 경우가 많음)
+
+
+
+### **FPGA**
+
+: 스위치의 Bounce 현상에대해관찰
+
+: 코드를 수정하여 Debounce적용후 스위치 테스트 (Controller 부분 수정)
+
+
+### **Quiz**
+
+- 코드에서 `i_sw2`를 누르는 순간이 아닌 `때는 순간 숫자가 증가`하게 하려면? (모드 변경할 때 다른 숫자들 올라가는 건 무시)
+
+```verilog
+reg		o_sec_clk		;
+reg		o_min_clk		;
+always @(*) begin
+	case(o_mode)
+		MODE_CLOCK : begin
+			o_sec_clk = clk_1hz;
+			o_min_clk = i_max_hit_sec;
+		end
+		MODE_SETUP : begin
+			case(o_position)
+				POS_SEC : begin
+					o_sec_clk = ~i_sw2;
+					o_min_clk = 1'b0;
+				end
+				POS_MIN : begin
+					o_sec_clk = 1'b0;
+					o_min_clk = ~i_sw2;
+				end
+			endcase
+		end
+	endcase
+end
+```
+
+
+### **Project Guide : 질의응답불가**
+
+: 시:분:초에 대한 디지털 시계 완성
+
+: 설정모드에서 7-segment의 dp를 활용한 설계
+
+- 예)초 설정 시 - 초 부분의 dp led를 점등
+
+: Blink 모드개발
+
+- 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4MzE1MTM2MDgsLTE5MDQ3ODAyMzFdfQ
-==
+eyJoaXN0b3J5IjpbLTMxNDEyMTQ0NywtMTkwNDc4MDIzMV19
 -->
