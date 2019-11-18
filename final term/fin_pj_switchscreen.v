@@ -425,7 +425,7 @@ hms_cnt		u2_hms_cnt(
 
 endmodule
 
-module	top_hms_clock(
+module	top_hms_clock_ss(
 		o_seg_enb,
 		o_seg_dp,
 		o_seg,
@@ -533,15 +533,16 @@ fnd_dec		u5_fnd_dec(
 				.o_seg(o_seg_5),
 				.i_num(o_right_2));
 
-wire	[41:0] six_digit_seg	;
+wire	[41:0]	six_digit_seg	;
+
 assign six_digit_seg = { o_seg_1, o_seg_0, o_seg_3, o_seg_2, o_seg_5, o_seg_4 };//switch horizontal order of number 
 
-led_disp	u_led_disp(
+led_disp	u_led_disp( 
 				.o_seg		(o_seg),
 				.o_seg_dp	(o_seg_dp),
 				.o_seg_enb	(o_seg_enb),
 				.i_six_digit_seg(six_digit_seg),
-				.i_six_dp	(6'd0),
+				.i_six_dp	(6'b010101),
 				.clk		(clk),
 				.rst_n		(rst_n));
 
