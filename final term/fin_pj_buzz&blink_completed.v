@@ -1,23 +1,3 @@
-//	==================================================
-//	Copyright (c) 2019 Sookmyung Women's University.
-//	--------------------------------------------------
-//	FILE 			: practice07.v
-//	DEPARTMENT		: EE
-//	AUTHOR			: WOONG CHOI
-//	EMAIL			: woongchoi@sookmyung.ac.kr
-//	--------------------------------------------------
-//	RELEASE HISTORY
-//	--------------------------------------------------
-//	VERSION			DATE
-//	0.0			2019-11-09
-//	--------------------------------------------------
-//	PURPOSE			: Digital Clock
-//	==================================================
-
-//	--------------------------------------------------
-//	Numerical Controlled Oscillator
-//	Hz of o_gen_clk = Clock Hz / num
-//	--------------------------------------------------
 module	nco(	
 		o_gen_clk,
 		i_nco_num,
@@ -54,29 +34,41 @@ endmodule
 //	--------------------------------------------------
 module	fnd_dec(
 		o_seg,
+		i_blink_seg,
 		i_num);
+		
+parameter     OFF = 1'b0  ;
+parameter     ON  = 1'b1  ;
 
-output	[6:0]	o_seg		;	// {o_seg_a, o_seg_b, ... , o_seg_g}
+output	[6:0]	 o_seg		     ;	// {o_seg_a, o_seg_b, ... , o_seg_g}
 
-input	[3:0]	i_num		;
-reg	[6:0]	o_seg		;
+input	 [3:0]	 i_num		     ;
+input         i_blink_seg ;
 
-always @(i_num) begin 
- 	case(i_num) 
- 		4'd0:	o_seg = 7'b111_1110; 
- 		4'd1:	o_seg = 7'b011_0000; 
- 		4'd2:	o_seg = 7'b110_1101; 
- 		4'd3:	o_seg = 7'b111_1001; 
- 		4'd4:	o_seg = 7'b011_0011; 
- 		4'd5:	o_seg = 7'b101_1011; 
- 		4'd6:	o_seg = 7'b101_1111; 
- 		4'd7:	o_seg = 7'b111_0000; 
- 		4'd8:	o_seg = 7'b111_1111; 
- 		4'd9:	o_seg = 7'b111_0011; 
-		default:o_seg = 7'b000_0000; 
-	endcase 
+reg	   [6:0]	 o_seg		     ;
+
+always @(*) begin
+  case(i_blink_seg)
+    ON  : begin
+     case(i_num) 
+ 		   4'd0 : o_seg = 7'b111_1110	; 
+ 		   4'd1 : o_seg = 7'b011_0000	; 
+ 		   4'd2 : o_seg = 7'b110_1101	; 
+ 		   4'd3 : o_seg = 7'b111_1001	; 
+ 		   4'd4 : o_seg = 7'b011_0011	; 
+ 		   4'd5 : o_seg = 7'b101_1011	; 
+ 		   4'd6 : o_seg = 7'b101_1111	; 
+ 		   4'd7 : o_seg = 7'b111_0000	; 
+ 		   4'd8 : o_seg = 7'b111_1111	; 
+ 		   4'd9 : o_seg = 7'b111_0011	; 
+		   default : o_seg = 7'b000_0000	;
+		  endcase 
+    end
+    OFF : begin
+      o_seg = 7'b000_0000 ;
+    end
+  endcase
 end
-
 
 endmodule
 
@@ -254,13 +246,13 @@ module	controller(
 		o_alarm_en,
 		o_sec_clk,
 		o_min_clk,
-		o_hr_clk,
+		o_hr_clk,// hour
 		o_alarm_sec_clk,
 		o_alarm_min_clk,
-		o_alarm_hr_clk,
+		o_alarm_hr_clk,// hour
 		i_max_hit_sec,
 		i_max_hit_min,
-		i_max_hit_hr, 
+		i_max_hit_hr, // hour
 		i_sw0,
 		i_sw1,
 		i_sw2,
@@ -269,20 +261,20 @@ module	controller(
 		rst_n);
 
 output	[1:0]	o_mode			;
-output		o_position		;
+output	[1:0]	o_position		;
 output		o_alarm_en		;
 output		o_sec_clk		;
 output		o_min_clk		;
-output		o_hr_clk		; 
+output		o_hr_clk		; //hour
 
 output		o_alarm_sec_clk		;
 output		o_alarm_min_clk		;
-output		o_alarm_hr_clk		;
+output		o_alarm_hr_clk		;// hour
 
 
 input		i_max_hit_sec		;
 input		i_max_hit_min		;
-input		i_max_hit_hr		;
+input		i_max_hit_hr		;// hour
 
 input		i_sw0			;
 input		i_sw1			;
@@ -298,7 +290,7 @@ parameter	MODE_ALARM	= 2'b10	;
 
 parameter	POS_SEC		= 2'b00	;
 parameter	POS_MIN		= 2'b01	;
-parameter	POS_HR		= 2'b10	; 
+parameter	POS_HR		= 2'b10	; //hour
 
 
 wire		clk_100hz		;
@@ -334,7 +326,7 @@ debounce	u3_debounce(
 
 reg	[1:0]	o_mode			;
 always @(posedge sw0 or negedge rst_n) begin
-	if(rst_n == 1'b0) begin
+  if(rst_n == 1'b0) begin
 		o_mode <= MODE_CLOCK;
 	end else begin
 		if(o_mode >= MODE_ALARM) begin
@@ -342,20 +334,34 @@ always @(posedge sw0 or negedge rst_n) begin
 		end else begin
 			o_mode <= o_mode + 1'b1;
 		end
-	end
+	end	  
 end
 
-reg	[1:0]	o_position		; 
-always @(posedge sw1 or negedge rst_n) begin
-	if(rst_n == 1'b0) begin
+reg	[1:0]	o_position		; // have to rewrite 
+  always @(posedge sw1 or negedge rst_n) begin
+  if(rst_n == 1'b0) begin
 		o_position <= POS_SEC;
 	end else begin
-		o_position <= o_position + 1'b1;
-		if(o_position == 2'b10) begin
+		
+		if(o_position >= POS_HR) begin
 			o_position <= POS_SEC;
+		end else begin
+			o_position <= o_position + 1'b1;
 		end
-	end
-end
+	end 
+/*  case (o_position)      //o_position case version
+	  POS_SEC : begin
+	    o_position <= POS_MIN;
+	   end
+	   POS_MIN : begin
+	     o_position <= POS_HR;
+	   end
+	   POS_HR  : begin
+	     o_position <= POS_SEC;
+	   end
+	   default : o_position <= POS_SEC;
+	 endcase */
+end 
 
 reg		o_alarm_en		;
 always @(posedge sw3 or negedge rst_n) begin
@@ -375,10 +381,10 @@ nco		u1_nco(
 
 reg		o_sec_clk		;
 reg		o_min_clk		;
-reg		o_hr_clk		;
+reg		o_hr_clk		;// hour
 reg		o_alarm_sec_clk		;
 reg		o_alarm_min_clk		;
-reg		o_alarm_hr_clk		;
+reg		o_alarm_hr_clk		;// hour
 always @(*) begin
 	case(o_mode)
 		MODE_CLOCK : begin
@@ -410,7 +416,7 @@ always @(*) begin
 				POS_HR  : begin
 					o_sec_clk = 1'b0;
 					o_min_clk = 1'b0;
-					o_hr_clk  = ~sw2; 
+					o_hr_clk  = ~sw2; //hour
 					o_alarm_sec_clk = 1'b0;
 					o_alarm_min_clk = 1'b0;
 					o_alarm_hr_clk = 1'b0;
@@ -490,7 +496,7 @@ output		o_max_hit_hr	;
 output		o_alarm		;
 
 input	[1:0]	i_mode		;
-input		i_position	;
+input	[1:0]	i_position	;
 input		i_sec_clk	;
 input		i_min_clk	;
 input		i_hr_clk	;
@@ -553,7 +559,7 @@ hms_cnt		u_hms_cnt_alarm_min(
 		.o_max_hit	( 			),
 		.i_max_cnt	( 6'd59			),
 		.clk		( i_alarm_min_clk	),
-		 .rst_n		( rst_n			));
+		.rst_n		( rst_n			));
 
 wire	[5:0]	alarm_hr	;
 hms_cnt		u_hms_cnt_alarm_hr(
@@ -658,11 +664,11 @@ reg	[31:0]	nco_num		;
 always @ (*) begin
 	case(cnt)
 		6'd00: nco_num = E4	;
-		6'd01: nco_num = A4	;
-		6'd02: nco_num = C5	;
-		6'd03: nco_num = E5	;
-		6'd04: nco_num = E5	;
-		6'd05: nco_num = E5	;
+		6'd01: nco_num = 1'b1	;
+		6'd02: nco_num = 1'b1	;
+		6'd03: nco_num = 1'b1	;
+		6'd04: nco_num = 1'b1	;
+		6'd05: nco_num = 1'b1	;
 		6'd06: nco_num = D5	;
 		6'd07: nco_num = C5	;
 		6'd08: nco_num = B4	;
@@ -708,10 +714,95 @@ always @ (*) begin
 		
 	endcase
 end
+
+wire		buzz		;
+nco	u_nco_buzz(	
+		.o_gen_clk	( buzz		),
+		.i_nco_num	( nco_num	),
+		.clk		( clk		),
+		.rst_n		( rst_n		));
+
+assign		o_buzz = buzz & i_buzz_en;
+
 endmodule
-//	--------------------------------------------------
-//	top module
-//	--------------------------------------------------
+
+//-------------------------
+//blink
+//---------------------------
+module blink(
+    o_blink_seg_enb,
+    o_mode,
+    o_position,
+    clk,
+    rst_n);
+
+parameter MODE_CLOCK  = 2'b00;
+parameter MODE_SETUP  = 2'b01;
+parameter MODE_ALARM  = 2'b10;
+parameter POS_SEC     = 2'b00;
+parameter POS_MIN     = 2'b01;
+parameter POS_HR      = 2'b10;
+
+output  [5:0] o_blink_seg_enb ;
+
+input   [1:0] o_mode          ;
+input   [1:0] o_position      ;
+input         clk             ;
+input         rst_n           ;
+
+reg     [5:0] o_blink_seg_enb     ;    // OFF: o_blink_seg_enb = 0, ON: o_blink_seg_enb = 1
+
+wire  clk_4hz;                    //about blink clk
+
+nco		u_blink_nco(                 //make clk_4hz
+		.o_gen_clk	( clk_4hz	),
+		.i_nco_num	( 32'd12500000	),
+		.clk		( clk		),
+		.rst_n		( rst_n		));
+		
+initial o_blink_seg_enb=6'b111111;
+always@(posedge clk_4hz) begin
+  case(o_mode)
+ //   o_blink_seg_enb<=6'b111111;
+    MODE_SETUP : begin
+      o_blink_seg_enb<=6'b111111;   //all seg_enb on at first
+      case(o_position)
+        POS_SEC : begin
+          if(1) begin
+            o_blink_seg_enb[0]<=!o_blink_seg_enb[0];  
+            o_blink_seg_enb[1]<=!o_blink_seg_enb[1];
+          end
+        end
+        
+        POS_MIN : begin
+          if(1) begin
+            o_blink_seg_enb[2]<=!o_blink_seg_enb[2];
+            o_blink_seg_enb[3]<=!o_blink_seg_enb[3];
+          end
+        end
+        
+        POS_HR : begin
+          if(1) begin
+            o_blink_seg_enb[4]<=!o_blink_seg_enb[4];
+            o_blink_seg_enb[5]<=!o_blink_seg_enb[5];
+          end
+        end
+//        default : o_blink_seg_enb<=6'b111111;
+      endcase
+//      default : o_blink_seg_enb<=6'b111111;
+    end
+    MODE_CLOCK  : begin
+      o_blink_seg_enb<=6'b111111; //clock mode: all seg_enb on at first
+    end
+    MODE_ALARM  : begin
+      o_blink_seg_enb<=6'b111111; //alarm mode: all seg_enb on at first
+    end
+  endcase 
+end
+
+endmodule
+
+
 module	top(
 		o_seg_enb,
 		o_seg_dp,
@@ -737,7 +828,7 @@ input		clk		;
 input		rst_n		;
 
 wire	[1:0]	o_mode		;
-wire		o_position	;
+wire	[1:0]	o_position	;
 wire		i_max_hit_sec	;
 wire		i_max_hit_min	;
 wire		i_max_hit_hr	;
@@ -819,27 +910,36 @@ wire	[6:0]	o_seg_3		;
 wire	[6:0]	o_seg_4		;
 wire	[6:0]	o_seg_5		;
 
+wire [5:0] o_blink_seg_enb;
+
 fnd_dec		u0_fnd_dec(
 				.o_seg(o_seg_0),
+				.i_blink_seg(o_blink_seg_enb[0]),
 				.i_num(o_left_0));
+				
 fnd_dec		u1_fnd_dec(
 				.o_seg(o_seg_1),
+				.i_blink_seg(o_blink_seg_enb[1]),
 				.i_num(o_right_0));
 
 fnd_dec		u2_fnd_dec(
 				.o_seg(o_seg_2),
+				.i_blink_seg(o_blink_seg_enb[2]),
 				.i_num(o_left_1));
 
 fnd_dec		u3_fnd_dec(
 				.o_seg(o_seg_3),
+				.i_blink_seg(o_blink_seg_enb[3]),
 				.i_num(o_right_1));
 
 fnd_dec		u4_fnd_dec(
 				.o_seg(o_seg_4),
+				.i_blink_seg(o_blink_seg_enb[4]),
 				.i_num(o_left_2));
 
 fnd_dec		u5_fnd_dec(
 				.o_seg(o_seg_5),
+				.i_blink_seg(o_blink_seg_enb[5]),
 				.i_num(o_right_2));
 
 wire	[41:0]	six_digit_seg	;
@@ -850,7 +950,7 @@ led_disp	u_led_disp(
 				.o_seg_dp	(o_seg_dp),
 				.o_seg_enb	(o_seg_enb),
 				.i_six_digit_seg(six_digit_seg),
-				.i_six_dp	(6'd010101),
+				.i_six_dp	(6'd0),
 				.clk		(clk),
 				.rst_n		(rst_n));
 buzz		u_buzz(
@@ -858,6 +958,15 @@ buzz		u_buzz(
 				.i_buzz_en	(o_alarm_1),
 				.clk		(clk),
 				.rst_n		(rst_n));
+				
+//wire  [5:0] o_blink_seg_enb; 
+   
+blink u_blink(
+    .o_blink_seg_enb  (o_blink_seg_enb),
+    .o_mode           (o_mode),
+    .o_position       (o_position),
+    .clk              (clk),
+    .rst_n            (rst_n));
 
 
 endmodule
