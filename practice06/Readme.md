@@ -11,10 +11,10 @@
 : top module (top) 만 채워서 설계
 
 : Testbench 이용하여 신호입력 후 wave로 확인
-wave ㅇ
+-wave 에서 Leader Code와 32bit Data code 확인
 
-### **FPGA**
-
+###  **FPGA 이용하여 리모콘 수신신호 확인**
+#
 : 스위치의 Bounce 현상에대해관찰
 
 : 코드를 수정하여 Debounce적용후 스위치 테스트 (Controller 부분 수정)
@@ -59,6 +59,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ0ODA4OTk4OSwxMjY4MzU1NDc0LDE3Mj
-UxODAyMDksLTMxNDEyMTQ0NywtMTkwNDc4MDIzMV19
+eyJoaXN0b3J5IjpbNDEyMjAzNzQ0LDEyNjgzNTU0NzQsMTcyNT
+E4MDIwOSwtMzE0MTIxNDQ3LC0xOTA0NzgwMjMxXX0=
 -->
