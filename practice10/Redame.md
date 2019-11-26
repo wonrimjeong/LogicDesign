@@ -17,11 +17,11 @@
 
 ### **동작원리와 wave 캡쳐 설명**
 seq_rx가
-2'b00일 때 모두 low인 상태
-2'b01일 때 현재 high가 들어온 상태
+2'b00일 때 모두 low인 상태,
+2'b01일 때 현재 high가 들어온 상태,
 2'b11일 때 모두 high인 상태
 				
-Data code가 seg_rx가 2'b10이 되면 +1, 
+Data code가 seg_rx가 2'b10이 되면 +1bit, 
 총 32bit가 되면 data 한 사이클 완성
 
 ![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice10/1.png)
