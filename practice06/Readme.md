@@ -20,13 +20,13 @@
 처음 Leader code에서 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
 Data code의 cnt32가 32만큼 간 후에 종료 
 
-### **동작원리 설명**
+### **동작원리와 wave 캡쳐 설명**
 seq_rx가 2'b00일 때 모두 low인 상태
 				2'b01일 때 현재 high가 들어온 상태
 				2'b11일 때 모두 high인 상태
-Data code가 seg_rx가 2'b10이 되면 +1, 총 32bit가 되면 
+Data code가 seg_rx가 2'b10이 되면 +1, 총 32bit가 되면 data 한 사이클 완성
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE0MTk4MTU4OSwtMTU5NzY2NTI3OCw1ND
-M4NTEyMCwxMjY4MzU1NDc0LDE3MjUxODAyMDksLTMxNDEyMTQ0
-NywtMTkwNDc4MDIzMV19
+eyJoaXN0b3J5IjpbLTIxMzIzNDk5NzYsLTE1OTc2NjUyNzgsNT
+QzODUxMjAsMTI2ODM1NTQ3NCwxNzI1MTgwMjA5LC0zMTQxMjE0
+NDcsLTE5MDQ3ODAyMzFdfQ==
 -->
