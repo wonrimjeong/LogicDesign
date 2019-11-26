@@ -17,8 +17,7 @@
 
 ### **wave 캡쳐 에 대한 설명**
 
-![](https://github.com/woongchoi-sookmyung/LogicDesign/blob/master/practice07/figs/block_diagram.png)
-
+처음 Leader code에서 cnt_h가 8999와 599
 ```verilog
 reg		o_sec_clk		;
 reg		o_min_clk		;
@@ -57,6 +56,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcxNjQxMjk4LDEyNjgzNTU0NzQsMTcyNT
+eyJoaXN0b3J5IjpbNTk1MzkyNzAwLDEyNjgzNTU0NzQsMTcyNT
 E4MDIwOSwtMzE0MTIxNDQ3LC0xOTA0NzgwMjMxXX0=
 -->
