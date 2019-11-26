@@ -21,9 +21,11 @@
 Data code의 cnt32가 32만큼 간 후에 종료 
 
 ### **동작원리 설명**
-seq_rx가 2'b00일 때 아무것도 
+seq_rx가 2'b00일 때 모두 low인 상태
+				2'b01일 때 현재 high가 들어온 상태
+				2'b11일 때 모두 high인 상태
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjMzMDU0MjkyLC0xNTk3NjY1Mjc4LDU0Mz
+eyJoaXN0b3J5IjpbMzEzNzgyNDYzLC0xNTk3NjY1Mjc4LDU0Mz
 g1MTIwLDEyNjgzNTU0NzQsMTcyNTE4MDIwOSwtMzE0MTIxNDQ3
 LC0xOTA0NzgwMjMxXX0=
 -->
