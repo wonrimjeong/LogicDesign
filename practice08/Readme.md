@@ -4,7 +4,7 @@
 
 ### **리모콘 수신 모듈**
 
-![](https://github.com/woongchoi-sookmyung/LogicDesign/blob/master/practice07/figs/block_diagram.png)
+
 
 : GitHub에 제공된 소스코드 사용
 
@@ -14,9 +14,8 @@
 -wave 에서 Leader Code와 32bit Data code 확인
 
 ###  **FPGA 이용하여 리모콘 수신신호 확인**
-#
 
-### **wave 캡쳐 에 대한 
+### **wave 캡쳐 에 대한 설명**
 
 ```verilog
 reg		o_sec_clk		;
@@ -56,6 +55,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjAzMTkyMDQ4LDEyNjgzNTU0NzQsMTcyNT
-E4MDIwOSwtMzE0MTIxNDQ3XX0=
+eyJoaXN0b3J5IjpbLTgwODQwNTQ5MiwxMjY4MzU1NDc0LDE3Mj
+UxODAyMDksLTMxNDEyMTQ0N119
 -->
