@@ -1,4 +1,4 @@
-# Lab 07
+# Lab 10
 
 ## 실습 내용
 
@@ -63,5 +63,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxNDEyMTQ0NywtMTkwNDc4MDIzMV19
+eyJoaXN0b3J5IjpbMTcyNTE4MDIwOSwtMzE0MTIxNDQ3LC0xOT
+A0NzgwMjMxXX0=
 -->
