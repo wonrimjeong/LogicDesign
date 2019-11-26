@@ -6,13 +6,12 @@
 
 ![](https://github.com/woongchoi-sookmyung/LogicDesign/blob/master/practice07/figs/block_diagram.png)
 
-: GitHub에 제공된 소스코드 사용 - 다른 모듈 건드리지 말 것
+: GitHub에 제공된 소스코드 사용
 
-: top module (top_hms_clock) 만 채워서 설계
+: top module (top) 만 채워서 설계
 
-: 이번 실습은 Test Bench 생략가능 (ModelSim 검증하고 FPGA 하는게 더 빠른 경우가 많음)
-
-
+: Testbench 이용하여 신호입력 후 wave로 확인
+wave 에서 L
 
 ### **FPGA**
 
@@ -21,9 +20,6 @@
 : 코드를 수정하여 Debounce적용후 스위치 테스트 (Controller 부분 수정)
 
 
-### **Quiz**
-
-- 코드에서 `i_sw2`를 누르는 순간이 아닌 `때는 순간 숫자가 증가`하게 하려면? (모드 변경할 때 다른 숫자들 올라가는 건 무시)
 
 ```verilog
 reg		o_sec_clk		;
@@ -63,6 +59,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI2ODM1NTQ3NCwxNzI1MTgwMjA5LC0zMT
-QxMjE0NDddfQ==
+eyJoaXN0b3J5IjpbLTk5NjA0MDA2LDEyNjgzNTU0NzQsMTcyNT
+E4MDIwOSwtMzE0MTIxNDQ3XX0=
 -->
