@@ -24,10 +24,13 @@ seq_rx가
 Data code가 seg_rx가 2'b10이 되면 +1, 
 총 32bit가 되면 data 한 사이클 완성
 
+[]!(https://github.com/wonrimjeong/LogicDesign/blob/master/practice10/1.png)
+
 처음 Leader code에서 
 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
 
 Data code의 cnt32가 32만큼 간 후에 종료 
+
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMTg2NjUxMTg5NF19
