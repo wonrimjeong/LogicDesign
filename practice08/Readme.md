@@ -16,15 +16,19 @@
 ###  **FPGA 이용하여 리모콘 수신신호 확인**
 
 ### **동작원리와 wave 캡쳐 설명**
-seq_rx가 2'b00일 때 모두 low인 상태
-				2'b01일 때 현재 high가 들어온 상태
+seq_rx가
+ 2'b00일 때 모두 low인 상태
+			 	2'b01일 때 현재 high가 들어온 상태
 				2'b11일 때 모두 high인 상태
-Data code가 seg_rx가 2'b10이 되면 +1, 총 32bit가 되면 data 한 사이클 완성
-처음 Leader code에서 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
+				
+Data code가 seg_rx가 2'b10이 되면 +1, 
+총 32bit가 되면 data 한 사이클 완성
+처음 Leader code에서 
+cnt_h가 8999와 599만큼 간 후에 Custom code 발생
 Data code의 cnt32가 32만큼 간 후에 종료 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk2MjI5Mjk5MCwtMTU5NzY2NTI3OCw1ND
+eyJoaXN0b3J5IjpbMTQxNTgwMjUxOCwtMTU5NzY2NTI3OCw1ND
 M4NTEyMCwxMjY4MzU1NDc0LDE3MjUxODAyMDksLTMxNDEyMTQ0
 N119
 -->
