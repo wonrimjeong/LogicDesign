@@ -15,11 +15,8 @@
 
 ###  **FPGA 이용하여 리모콘 수신신호 확인**
 #
-: 스위치의 Bounce 현상에대해관찰
 
-: 코드를 수정하여 Debounce적용후 스위치 테스트 (Controller 부분 수정)
-
-
+### **wave 캡쳐 에 대한 
 
 ```verilog
 reg		o_sec_clk		;
@@ -59,6 +56,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDEyMjAzNzQ0LDEyNjgzNTU0NzQsMTcyNT
+eyJoaXN0b3J5IjpbNjAzMTkyMDQ4LDEyNjgzNTU0NzQsMTcyNT
 E4MDIwOSwtMzE0MTIxNDQ3LC0xOTA0NzgwMjMxXX0=
 -->
