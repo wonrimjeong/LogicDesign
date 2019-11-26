@@ -20,8 +20,10 @@
 처음 Leader code에서 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
 Data code의 cnt32가 32만큼 간 후에 종료 
 
+### **동작원리 설명**
+seq_rx가 2'b00일 때 아무것도 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI5MTU4NjgxNiwtMTU5NzY2NTI3OCw1ND
-M4NTEyMCwxMjY4MzU1NDc0LDE3MjUxODAyMDksLTMxNDEyMTQ0
-NywtMTkwNDc4MDIzMV19
+eyJoaXN0b3J5IjpbMjMzMDU0MjkyLC0xNTk3NjY1Mjc4LDU0Mz
+g1MTIwLDEyNjgzNTU0NzQsMTcyNTE4MDIwOSwtMzE0MTIxNDQ3
+LC0xOTA0NzgwMjMxXX0=
 -->
