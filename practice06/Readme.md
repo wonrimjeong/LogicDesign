@@ -18,7 +18,7 @@
 ### **wave 캡쳐 에 대한 설명**
 
 처음 Leader code에서 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
-Data code의 cnt32가 32만큼 
+Data code의 cnt32가 32만큼 간 후에 종료 
 ```verilog
 reg		o_sec_clk		;
 reg		o_min_clk		;
@@ -57,7 +57,7 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzk2NTAzNTU1LDU0Mzg1MTIwLDEyNjgzNT
-U0NzQsMTcyNTE4MDIwOSwtMzE0MTIxNDQ3LC0xOTA0NzgwMjMx
-XX0=
+eyJoaXN0b3J5IjpbLTE1OTc2NjUyNzgsNTQzODUxMjAsMTI2OD
+M1NTQ3NCwxNzI1MTgwMjA5LC0zMTQxMjE0NDcsLTE5MDQ3ODAy
+MzFdfQ==
 -->
