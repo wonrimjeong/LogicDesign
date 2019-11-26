@@ -17,7 +17,7 @@
 
 ### **wave 캡쳐 에 대한 설명**
 
-처음 Leader code에서 cnt_h가 8999와 599
+처음 Leader code에서 cnt_h가 8999와 599만큼 간 후에
 ```verilog
 reg		o_sec_clk		;
 reg		o_min_clk		;
@@ -56,6 +56,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTk1MzkyNzAwLDEyNjgzNTU0NzQsMTcyNT
-E4MDIwOSwtMzE0MTIxNDQ3LC0xOTA0NzgwMjMxXX0=
+eyJoaXN0b3J5IjpbNTQzODUxMjAsMTI2ODM1NTQ3NCwxNzI1MT
+gwMjA5LC0zMTQxMjE0NDcsLTE5MDQ3ODAyMzFdfQ==
 -->
