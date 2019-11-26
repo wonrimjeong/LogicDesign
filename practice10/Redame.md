@@ -28,7 +28,7 @@ Data code가 seg_rx가 2'b10이 되면 +1,
 처음 Leader code에서 
 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
 
-![]https://github.com/wonrimjeong/LogicDesign/blob/master/practice10/2.png
+![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice10/2.png)
 Data code의 cnt32가 32만큼 간 후에 종료 
 
 
