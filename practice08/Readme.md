@@ -1,8 +1,8 @@
-# Lab 07
+# Lab 10
 
 ## 실습 내용
 
-### **디지털 시계 (분:초) 부분 설계 - Debounce 적용 전**
+### **리모콘 수신 모듈**
 
 ![](https://github.com/woongchoi-sookmyung/LogicDesign/blob/master/practice07/figs/block_diagram.png)
 
@@ -63,5 +63,6 @@ end
 
 - 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxNDEyMTQ0N119
+eyJoaXN0b3J5IjpbMTI2ODM1NTQ3NCwxNzI1MTgwMjA5LC0zMT
+QxMjE0NDddfQ==
 -->
