@@ -19,44 +19,9 @@
 
 처음 Leader code에서 cnt_h가 8999와 599만큼 간 후에 Custom code 발생
 Data code의 cnt32가 32만큼 간 후에 종료 
-```verilog
-reg		o_sec_clk		;
-reg		o_min_clk		;
-always @(*) begin
-	case(o_mode)
-		MODE_CLOCK : begin
-			o_sec_clk = clk_1hz;
-			o_min_clk = i_max_hit_sec;
-		end
-		MODE_SETUP : begin
-			case(o_position)
-				POS_SEC : begin
-					o_sec_clk = ~i_sw2;
-					o_min_clk = 1'b0;
-				end
-				POS_MIN : begin
-					o_sec_clk = 1'b0;
-					o_min_clk = ~i_sw2;
-				end
-			endcase
-		end
-	endcase
-end
-```
 
-
-### **Project Guide : 질의응답불가**
-
-: 시:분:초에 대한 디지털 시계 완성
-
-: 설정모드에서 7-segment의 dp를 활용한 설계
-
-- 예)초 설정 시 - 초 부분의 dp led를 점등
-
-: Blink 모드개발
-
-- 설정모드에서 설정부분을 깜빡이게 Display
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1OTc2NjUyNzgsNTQzODUxMjAsMTI2OD
-M1NTQ3NCwxNzI1MTgwMjA5LC0zMTQxMjE0NDddfQ==
+eyJoaXN0b3J5IjpbLTI5MTU4NjgxNiwtMTU5NzY2NTI3OCw1ND
+M4NTEyMCwxMjY4MzU1NDc0LDE3MjUxODAyMDksLTMxNDEyMTQ0
+N119
 -->
