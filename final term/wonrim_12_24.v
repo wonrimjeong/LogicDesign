@@ -183,6 +183,8 @@ endmodule
 //	--------------------------------------------------
 module	hms_cnt(
 		o_hms_cnt,
+		i_hms_cnt_start,
+		i_hms_cnt_set,
 		o_max_hit,
 		i_max_cnt,
 		clk,
@@ -195,15 +197,18 @@ input	[5:0]	i_max_cnt		;
 input		clk			;
 input		rst_n			;
 
+input	[7:0]	i_hms_cnt_start		;
+input	[6:0]	i_hms_cnt_set		;
+
 reg	[5:0]	o_hms_cnt		;
 reg		o_max_hit		;
 always @(posedge clk or negedge rst_n) begin
 	if(rst_n == 1'b0) begin
-		o_hms_cnt <= 6'd0;
+		o_hms_cnt <= i_hms_cnt_start;
 		o_max_hit <= 1'b0;
 	end else begin
 		if(o_hms_cnt >= i_max_cnt) begin
-			o_hms_cnt <= 6'd0;
+			o_hms_cnt <= i_hms_cnt_set;
 			o_max_hit <= 1'b1;
 		end else begin
 			o_hms_cnt <= o_hms_cnt + 1'b1;
@@ -370,7 +375,7 @@ always @(posedge sw3 or negedge rst_n) begin
 	end
 end
 
-reg 	[5:0] o_hms_cnt;
+/*reg 	[5:0] o_hms_cnt;
 reg	 [5:0] i_six_dp;
 always @(posedge o_hms_cnt or negedge rst_n) begin
   if(rst_n == 1'b0) begin
@@ -384,7 +389,7 @@ always @(posedge o_hms_cnt or negedge rst_n) begin
       o_hms_cnt <= o_hms_cnt + 1'b1;
     end
   end
-end
+end*/
 
 reg		o_mode_7	;
 always @(posedge sw7 or negedge rst_n) begin
@@ -409,45 +414,46 @@ reg		o_alarm_sec_clk		;
 reg		o_alarm_min_clk		;
 reg		o_alarm_hr_clk		;// hour
 always @(*) begin
-	case(o_mode)
-		MODE_CLOCK : begin
-			o_sec_clk = clk_1hz;
-			o_min_clk = i_max_hit_sec;
-			o_hr_clk = i_max_hit_min;
-			o_alarm_sec_clk = 1'b0;
-			o_alarm_min_clk = 1'b0;
-			o_alarm_hr_clk = 1'b0;
+	if(rst_n == 1'b0) begin
+		case(o_mode)
+			MODE_CLOCK : begin
+				o_sec_clk = clk_1hz;
+				o_min_clk = i_max_hit_sec;
+				o_hr_clk = i_max_hit_min;
+				o_alarm_sec_clk = 1'b0;
+				o_alarm_min_clk = 1'b0;
+				o_alarm_hr_clk = 1'b0;
 			
-		end
-		MODE_SETUP : begin
-			case(o_position)
-				POS_SEC : begin
-					o_sec_clk = ~sw2;
-					o_min_clk = 1'b0;
-					o_hr_clk  = 1'b0;
-					o_alarm_sec_clk = 1'b0;
-					o_alarm_min_clk = 1'b0;
-					o_alarm_hr_clk = 1'b0;
-				end
-				POS_MIN : begin
-					o_sec_clk = 1'b0;
-					o_min_clk = ~sw2;
-					o_hr_clk  = 1'b0;
-					o_alarm_sec_clk = 1'b0;
-					o_alarm_min_clk = 1'b0;
-					o_alarm_hr_clk = 1'b0;
-				end
-				POS_HR  : begin
-					o_sec_clk = 1'b0;
-					o_min_clk = 1'b0;
-					o_hr_clk  = ~sw2; //hour
-					o_alarm_sec_clk = 1'b0;
-					o_alarm_min_clk = 1'b0;
-					o_alarm_hr_clk = 1'b0;
-				end
-			endcase
-		end
-		MODE_ALARM : begin
+			end
+			MODE_SETUP : begin
+				case(o_position)
+					POS_SEC : begin
+						o_sec_clk = ~sw2;
+						o_min_clk = 1'b0;
+						o_hr_clk  = 1'b0;
+						o_alarm_sec_clk = 1'b0;
+						o_alarm_min_clk = 1'b0;
+						o_alarm_hr_clk = 1'b0;
+					end
+					POS_MIN : begin
+						o_sec_clk = 1'b0;
+						o_min_clk = ~sw2;
+						o_hr_clk  = 1'b0;
+						o_alarm_sec_clk = 1'b0;
+						o_alarm_min_clk = 1'b0;
+						o_alarm_hr_clk = 1'b0;
+					end
+					POS_HR  : begin
+						o_sec_clk = 1'b0;
+						o_min_clk = 1'b0;
+						o_hr_clk  = ~sw2; //hour
+						o_alarm_sec_clk = 1'b0;
+						o_alarm_min_clk = 1'b0;
+						o_alarm_hr_clk = 1'b0;
+						end
+				endcase
+			end
+			MODE_ALARM : begin
 			case(o_position)
 				POS_SEC : begin
 					o_sec_clk = clk_1hz;
@@ -484,8 +490,28 @@ always @(*) begin
 			o_alarm_hr_clk = 1'b0;
 		end
 	endcase
-end
 
+end else begin
+	case(o_mode_7)
+		1'b1: begin	
+			o_sec_clk = clk_1hz;
+			o_min_clk = i_max_hit_sec;
+			o_hr_clk  = i_max_hit_min;
+			o_alarm_sec_clk = 1'b0;
+			o_alarm_min_clk = 1'b0;
+			o_alarm_hr_clk = 1'b0;
+		end
+		default: begin
+			o_sec_clk = 1'b0;
+			o_min_clk = 1'b0;
+			o_hr_clk = 1'b0;
+			o_alarm_sec_clk = 1'b0;
+			o_alarm_min_clk = 1'b0;
+			o_alarm_hr_clk = 1'b0;
+		end
+	endcase
+end		
+end
 endmodule
 
 //	--------------------------------------------------
@@ -542,11 +568,11 @@ parameter	POS_SEC		= 2'b00	;
 parameter	POS_MIN		= 2'b01	;
 parameter	POS_HR		= 2'b10	;
 
-
-
-reg	[4:0]	i_max_cnt_hr		;
+wire	[4:0] i_max_cnt_hr	;
+assign	{i_max_cnt_hr} = i_mode_7 == 1? 4'd11 : 5'd23 ;
+/*reg	[4:0]	i_max_cnt_hr		;
 reg	[4:0]	o_hms_cnt		;
-always @(posedge i_mode_7 or negedge rst_n) begin
+always @(i_mode_7 or negedge rst_n) begin
 	if(rst_n == 1'b0) begin
 		i_max_cnt_hr <= 5'd23		;
 		o_hr	 <= o_hr		;
@@ -559,7 +585,7 @@ always @(posedge i_mode_7 or negedge rst_n) begin
 		o_hms_cnt<= o_hms_cnt - 4'd12;
 		end
 	end
-end
+end*/
 //	MODE_CLOCK
 wire	[5:0]	sec		;
 wire		max_hit_sec	;
@@ -584,6 +610,8 @@ wire		max_hit_hr	;
 hms_cnt		u_hms_cnt_hr(
 		.o_hms_cnt	( hr			),
 		.o_max_hit	( o_max_hit_hr		),
+		.i_hms_cnt_start( 1'b1			),
+		.i_hms_cnt_set	( 1'b1			),
 		.i_max_cnt	( i_max_cnt_hr		),
 		.clk		( i_hr_clk		),
 		.rst_n		( rst_n			));
