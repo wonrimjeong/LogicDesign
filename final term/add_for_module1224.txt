@@ -1,0 +1,49 @@
+Add in controller module
+
+input 	i_sw7	;
+
+wire		sw7			;
+debounce	u3_debounce(
+		.o_sw		( sw7		),
+		.i_sw		( i_sw7		),
+		.clk		( clk_100hz	));
+reg		o_mode_7		;
+always @(posedge sw7 or negedge rst_n) begin
+	if(rst_n == 1'b0) begin
+		o_mode_7 <= 1'b0	;
+	end else begin
+		o_mode_7 <= o_mode_7 + 1'b1;
+	end
+end
+
+case(o_mode_7)
+	MODE_1224 : begin
+		o_sec_clk	= clk_1hz	;
+		o_min_clk = i_max_hit_sec;
+		o_hr_clk	= i_max_hit_min;
+	endcase
+
+
+Add in hrminsec module
+
+//MODE CLOCK
+u_hms_cnt_hr(	.i_max_cnt( i_max_cnt),
+
+always @(posedge o_mode_7 or negedge rst_n) begin
+	if(rst_n == 1'b0) begin		
+		i_max_cnt <= 5'd23
+	end else begin
+		i_max_cnt <= 4'd11
+	end
+end
+
+
+always @(posedge sw7 or negedge rst_n) begin
+	if(i_max_cnt_hr >= 5'd12) begin
+		o_left <= o_left - 1'b1		;
+		o_right<= o_right - 2'b10	;
+	end else begin
+		o_left <= o_left	;
+		o_right<= o_right	;
+	end
+end
