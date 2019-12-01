@@ -217,7 +217,12 @@ always @(posedge clk or negedge rst_n) begin
 	end
 end
 
+
+wire		i_mode_7	;
+assign	i_max_cnt_hr = (i_mode_7 == 1)? 4'd11 : 5'd23 ;
+
 endmodule
+
 
 module  debounce(
 		o_sw,
@@ -573,8 +578,7 @@ parameter	POS_SEC		= 2'b00	;
 parameter	POS_MIN		= 2'b01	;
 parameter	POS_HR		= 2'b10	;
 
-wire	[4:0] i_max_cnt_hr	;
-assign	{i_max_cnt_hr} = i_mode_7 == 1? 4'd11 : 5'd23 ;
+
 /*reg	[4:0]	i_max_cnt_hr		;
 reg	[4:0]	o_hms_cnt		;
 always @(i_mode_7 or negedge rst_n) begin
@@ -683,9 +687,12 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-
-
-
+/*always @(posedge clk or negedge rst_n)begin
+	if(rst_n == 1'b0) begin
+		o_mode_7 <= 1'b0;
+	end else begin
+		if( o_mode_7 == 1'b1) begin*/
+			
 endmodule
 //	--------------------------------------------------
 //	BUZZ - Howl's moving castle
