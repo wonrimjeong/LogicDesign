@@ -414,7 +414,6 @@ reg		o_alarm_sec_clk		;
 reg		o_alarm_min_clk		;
 reg		o_alarm_hr_clk		;// hour
 always @(*) begin
-	if(rst_n == 1'b0) begin
 		case(o_mode)
 			MODE_CLOCK : begin
 				o_sec_clk = clk_1hz;
@@ -423,7 +422,14 @@ always @(*) begin
 				o_alarm_sec_clk = 1'b0;
 				o_alarm_min_clk = 1'b0;
 				o_alarm_hr_clk = 1'b0;
-			
+			if(o_mode_7) begin
+				o_sec_clk = clk_1hz;
+				o_min_clk = i_max_hit_sec;
+				o_hr_clk  = i_max_hit_min;
+				o_alarm_sec_clk = 1'b0;
+				o_alarm_min_clk = 1'b0;
+				o_alarm_hr_clk = 1'b0;
+			end
 			end
 			MODE_SETUP : begin
 				case(o_position)
@@ -491,7 +497,7 @@ always @(*) begin
 		end
 	endcase
 
-end else begin
+/*end else begin
 	case(o_mode_7)
 		1'b1: begin	
 			o_sec_clk = clk_1hz;
@@ -509,8 +515,7 @@ end else begin
 			o_alarm_min_clk = 1'b0;
 			o_alarm_hr_clk = 1'b0;
 		end
-	endcase
-end		
+	endcase*/	
 end
 endmodule
 
