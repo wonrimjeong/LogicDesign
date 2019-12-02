@@ -202,6 +202,7 @@ input	[6:0]	i_hms_cnt_set		;
 
 reg	[5:0]	o_hms_cnt		;
 reg		o_max_hit		;
+
 always @(posedge clk or negedge rst_n) begin
 	if(rst_n == 1'b0) begin
 		o_hms_cnt <= i_hms_cnt_start;
@@ -218,8 +219,7 @@ always @(posedge clk or negedge rst_n) begin
 end
 
 
-wire		i_mode_7	;
-assign	i_max_cnt_hr = (i_mode_7 == 1)? 4'd11 : 5'd23 ;
+
 
 endmodule
 
@@ -545,6 +545,7 @@ module	hrminsec(
 		i_alarm_min_clk,
 		i_alarm_hr_clk,
 		i_alarm_en,
+		i_max_cnt_hr,
 		clk,
 		rst_n);
 
@@ -566,6 +567,7 @@ input		i_alarm_sec_clk	;
 input		i_alarm_min_clk	;
 input		i_alarm_hr_clk	;
 input		i_alarm_en	;
+input	[4:0]	i_max_cnt_hr	; //dfdfdfdffdfddf
 
 input		clk		;
 input		rst_n		;
@@ -595,6 +597,10 @@ always @(i_mode_7 or negedge rst_n) begin
 		end
 	end
 end*/
+
+wire		i_mode_7	;
+assign	i_max_cnt_hr = (i_mode_7 == 1)? 4'd12 : 5'd23 ;
+
 //	MODE_CLOCK
 wire	[5:0]	sec		;
 wire		max_hit_sec	;
@@ -614,13 +620,13 @@ hms_cnt		u_hms_cnt_min(
 		.clk		( i_min_clk		),
 		.rst_n		( rst_n			));
 
-wire	[5:0]	hr		;
+wire	[4:0]	hr		;
 wire		max_hit_hr	;
 hms_cnt		u_hms_cnt_hr(
 		.o_hms_cnt	( hr			),
 		.o_max_hit	( o_max_hit_hr		),
-		.i_hms_cnt_start( 1'b1			),
-		.i_hms_cnt_set	( 1'b1			),
+		.i_hms_cnt_start( 4'd12			),
+		.i_hms_cnt_set	( 4'd1			),
 		.i_max_cnt	( i_max_cnt_hr		),
 		.clk		( i_hr_clk		),
 		.rst_n		( rst_n			));
@@ -649,7 +655,7 @@ hms_cnt		u_hms_cnt_alarm_hr(
 		.i_max_cnt	( 5'd23			),
 		.clk		( i_alarm_hr_clk	),
 		.rst_n		( rst_n			));
-//MODE 12
+
 
 reg	[5:0]	o_sec		;
 reg	[5:0]	o_min		;
@@ -972,10 +978,11 @@ hrminsec	u_hrminsec(	.o_sec		(o_sec),
 				.i_hr_clk	(o_hr_clk),
 				.i_alarm_sec_clk(o_alarm_sec_clk),
 				.i_alarm_min_clk(o_alarm_min_clk),
-				.i_alarm_hr_clk(o_alarm_hr_clk),
+				.i_alarm_hr_clk (o_alarm_hr_clk),
 				.i_alarm_en	(o_alarm_en),
 				.clk		(clk),
-				.rst_n		(rst_n));
+				.rst_n		(rst_n),
+				.i_max_cnt_hr	(i_max_cnt_hr));
 
 
 wire	[3:0]	o_left_0	;
