@@ -1000,40 +1000,40 @@ always @ (*) begin
 		6'd01: nco_num = A4	;
 		6'd02: nco_num = C5	;
 		6'd03: nco_num = E5	;
-		6'd04: nco_num = E5	;
+		6'd04: nco_num = 1'b1	;
 		6'd05: nco_num = E5	;
 		6'd06: nco_num = D5	;
 		6'd07: nco_num = C5	;
 		6'd08: nco_num = B4	;
 		6'd09: nco_num = C5	;
 		6'd10: nco_num = C5	;
-		6'd11: nco_num = C5	;
+		6'd11: nco_num = 1'b1	;
 		6'd12: nco_num = A4	;
 		6'd13: nco_num = C5	;
 		6'd14: nco_num = E5	;
 		6'd15: nco_num = A5	;
-		6'd16: nco_num = A5	;
+		6'd16: nco_num = 1'b1	;
 		6'd17: nco_num = A5	;
 		6'd18: nco_num = A5	;
 		6'd19: nco_num = G5	;
 		6'd20: nco_num = F5	;
 		6'd21: nco_num = G5	;
 		6'd22: nco_num = G5	;
-		6'd23: nco_num = G5	;
+		6'd23: nco_num = 1'b1	;
 		6'd24: nco_num = B4	;
 		6'd25: nco_num = E5	;
 		6'd26: nco_num = G5	;
 		6'd27: nco_num = B5	;
-		6'd28: nco_num = B5	;
+		6'd28: nco_num = 1'b1	;
 		6'd29: nco_num = A5	;
 		6'd30: nco_num = G5	;
 		6'd31: nco_num = F51	;
 		6'd32: nco_num = G5	;
 		6'd33: nco_num = A5	;
-		6'd34: nco_num = A5	;
+		6'd34: nco_num = 1'b1	;
 		6'd35: nco_num = G5	;
 		6'd36: nco_num = F51	;
-		6'd37: nco_num = F51	;
+		6'd37: nco_num = 1'b1	;
 		6'd38: nco_num = E5	;
 		6'd39: nco_num = D5	;
 		6'd40: nco_num = C5	;
@@ -1043,7 +1043,7 @@ always @ (*) begin
 		6'd44: nco_num = A4	;
 		6'd45: nco_num = B4	;
 		6'd46: nco_num = B4	;
-		6'd47: nco_num = B4	; 
+		6'd47: nco_num = 1'b1	; 
 		
 	endcase
 end
@@ -1263,6 +1263,7 @@ input		rst_n		;
 wire	[2:0]	o_mode		;
 wire	[1:0]	o_position	;
 wire		o_ss_mode	;
+wire		o_mode_7	;
 
 wire		i_max_hit_sec	;
 wire		i_max_hit_min	;
@@ -1446,7 +1447,7 @@ led_disp	u_led_disp(
 				.o_seg		(o_seg),
 				.o_seg_dp	(o_seg_dp),
 				.o_seg_enb	(o_seg_enb),
-				.i_six_digit_seg(six_digit_seg),
+				.i_six_digit_seg(o_six_digit_seg),
 				.i_six_dp	(6'd0),
 				.clk		(clk),
 				.rst_n		(rst_n));
