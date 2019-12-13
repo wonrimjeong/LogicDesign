@@ -17,11 +17,11 @@
 
 ### **동작원리와 wave 캡쳐 설명**
 seq_rx가
- 2'b00일 때 모두 low인 상태
-			 	2'b01일 때 현재 high가 들어온 상태
-				2'b11일 때 모두 high인 상태
+2'b00일 때 모두 low인 상태,
+2'b01일 때 현재 high가 들어온 상태,
+2'b11일 때 모두 high인 상태
 				
-Data code가 seg_rx가 2'b10이 되면 +1, 
+Data code가 seg_rx가 2'b10이 되면 +1bit, 
 총 32bit가 되면 data 한 사이클 완성
 
 ![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice10/1.png)
@@ -33,7 +33,8 @@ Data code의 cnt32가 32만큼 간 후에 종료
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MzIxNDQ1MDksMTg2NjUxMTg5NCwtMT
-U5NzY2NTI3OCw1NDM4NTEyMCwxMjY4MzU1NDc0LDE3MjUxODAy
-MDksLTMxNDEyMTQ0NywtMTkwNDc4MDIzMV19
+eyJoaXN0b3J5IjpbLTQxOTY2MTcwNiwtMTczMjE0NDUwOSwxOD
+Y2NTExODk0LC0xNTk3NjY1Mjc4LDU0Mzg1MTIwLDEyNjgzNTU0
+NzQsMTcyNTE4MDIwOSwtMzE0MTIxNDQ3LC0xOTA0NzgwMjMxXX
+0=
 -->
