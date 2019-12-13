@@ -12,13 +12,14 @@
 `Please fill up your source`
 ## 결과 ### **Top Module 의 DUT/TestBench Code 및 Waveform 검증**
 `Please fill up your source`
+![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice06/wave.png)
 ### **FPGA 동작 사진 (3개- 일반, Q1, Q2)**
 `Please fill up your source`
-![](https://github.com/wonrimjeong/LogicDesign/blob/master/practice06/wave.png)
+
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTE5MDQ3ODAyMzFdfQ==
 -->
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDg3Nzk4MDg2LC00MTk2NjE3MDYsNDg3Nz
-k4MDg2LDE4NjY1MTE4OTRdfQ==
+eyJoaXN0b3J5IjpbMTkxNTM0OTc1OCw0ODc3OTgwODYsLTQxOT
+Y2MTcwNiw0ODc3OTgwODYsMTg2NjUxMTg5NF19
 -->
