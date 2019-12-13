@@ -33,5 +33,5 @@ Data code의 cnt32가 32만큼 간 후에 종료
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MzIxNDQ1MDksMTg2NjUxMTg5NF19
+eyJoaXN0b3J5IjpbLTQxOTY2MTcwNiwxODY2NTExODk0XX0=
 -->
